@@ -4,10 +4,10 @@ addLayer("gf", {
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
-		points: new Decimal(0),
+		points: new Decimal(1),
     }},
     color: "#b26b50",
-    requires: new Decimal(10), // Can be a function that takes requirement increases into account
+    requires: new Decimal(5), // Can be a function that takes requirement increases into account
     resource: "giga flops", // Name of prestige currency
     baseResource: "flops", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
@@ -16,6 +16,7 @@ addLayer("gf", {
     gainMult() {
         let mult = new Decimal(1)
         if (hasUpgrade('gf', 13)) mult = mult.times(upgradeEffect('gf', 13))
+       
         return mult
     
         
@@ -55,7 +56,7 @@ addLayer("gf", {
     13: {
         title: "flop inflation^2",
         description: "0.1^ giga flops based on flops",
-        cost: new Decimal(100),
+        cost: new Decimal(35),
         effect() {
             return player.points.add(1).pow(0.1)
       
@@ -65,6 +66,19 @@ addLayer("gf", {
     
         },
 
+        21: {
+            title: "0.001% of floppas power",
+            description: "1.25^ flops",
+            cost: new Decimal(100),
+
+        
+           
+        
+
+
+            
+        }
+    
 
 
 
@@ -89,7 +103,7 @@ addLayer("mf", {
     baseResource: "flops", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.65, // Prestige currency exponent
+    exponent: 0.25, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -102,6 +116,29 @@ addLayer("mf", {
         {key: "m", description: "m: mega flop ", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
    
     ],
+
+    upgrades: {
+        11: {
+            title: "mega flop",
+            description: "3x flops",
+            cost: new Decimal(2),
+        
+        
+            
+        
+        
+        },
+        12: {
+            title: "FLOP W",
+            description: "10x flops",
+            cost: new Decimal(15),
+        
+        
+            
+        
+        
+        },
+    },
     layerShown(){return true}
 })
 
