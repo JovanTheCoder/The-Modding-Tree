@@ -98,14 +98,16 @@ addLayer("mf", {
 		points: new Decimal(0),
     }},
     color: "#85523f",
-    requires: new Decimal(25000), // Can be a function that takes requirement increases into account
+    requires: new Decimal(12500), // Can be a function that takes requirement increases into account
     resource: "mega flops", // Name of prestige currency
     baseResource: "flops", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.25, // Prestige currency exponent
+    exponent: 0.75, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
-        mult = new Decimal(1)
+        let mult = new Decimal(1)
+        if (hasUpgrade('mf', 13)) mult = mult.times(upgradeEffect('mf', 13))
+       
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -131,8 +133,23 @@ addLayer("mf", {
         12: {
             title: "FLOP W",
             description: "10x flops",
-            cost: new Decimal(15),
+            cost: new Decimal(4),
         
+        
+            
+        
+        
+        },
+        13: {
+            title: "mega floppy",
+            description: "weeeeeeee mega flops go brrr ",
+            cost: new Decimal(7),
+        
+            effect() {
+                return player.points.add(1).pow(0.2)
+          
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         
             
         
