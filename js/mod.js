@@ -13,14 +13,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0",
+	num: "1.01",
 	name: "flopping",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+	<h3>v1.01</h3><br>
+	-new layer <br>
+	-i figured out milestones<br>
+	-new everything basically`
 
 let winText = `how did u flop so hard`
 
@@ -48,6 +49,11 @@ function getPointGen() {
 	if (hasUpgrade('mf', 11)) gain = gain.times(3)
 	if (hasUpgrade('gf', 21)) gain = gain.pow(0.75)
 	if (hasUpgrade('mf', 12)) gain = gain.times(10)
+	if (hasUpgrade('gf', 91)) gain = gain.times(10)
+	if (hasUpgrade('fp', 12)) gain = gain.times(12.5)
+	if (hasUpgrade('mf', 14)) gain = gain.times(2)
+	if (hasMilestone('fp', 1)) gain = gain.times(2)
+	
 	
 	
 	return gain
@@ -63,7 +69,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e69"))
+	return player.points.gte(new Decimal("e11"))
 }
 
 
