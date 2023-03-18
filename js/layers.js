@@ -171,7 +171,7 @@ addLayer("mf", {
         let mult = new Decimal(1)
         if (hasUpgrade('mf', 13)) mult = mult.times(upgradeEffect('mf', 13))
         if (hasUpgrade('fp', 11)) mult = mult.times(upgradeEffect('fp', 11))
-        if (hasMilestone('fp', 2)) mult = mult.times(milestoneEffect('fp', 2))
+        if (hasMilestone('fp', 2)) mult = mult.times(new Decimal(1.5))
         
       
  
@@ -272,6 +272,21 @@ addLayer("mf", {
         
         
         },
+
+        16: {
+            title: "flop inflation^5",
+            description: "floppa power gain 0.25^",
+            cost: new Decimal(1e10),
+           
+            effect() {
+       
+                return player[this.layer].points.add(0).pow(0.25)
+               
+            },
+        
+        
+        
+        },
     },
     layerShown(){return true}
 }),
@@ -293,7 +308,7 @@ addLayer("fp", {
     exponent: 0.85, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         let mult = new Decimal(1)
-    
+        if (hasUpgrade('mf', 16)) mult = mult.times(upgradeEffect('mf', 16))
        
         return mult
     },
@@ -392,7 +407,7 @@ addLayer("cat", {
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "c", description: "c: catsr", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "c", description: "c: cats", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
    
     ],
     milestones:
