@@ -4,7 +4,7 @@ addLayer("gf", {
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
-		points: new Decimal(1),
+		points: new Decimal(0),
     }},
     color: "#b26b50",
     requires: new Decimal(5), // Can be a function that takes requirement increases into account
@@ -117,7 +117,7 @@ addLayer("gf", {
             title: "dev test power",
             description: "10x flops",
             cost: new Decimal(0),
-unlocked: true
+unlocked: false
         
 
             
@@ -165,6 +165,11 @@ addLayer("mf", {
         {key: "m", description: "m: mega flop ", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
    
     ],
+
+    
+    passiveGeneration() { 
+        return hasMilestone("fp", "11") ? 1 : 0; 
+      },
     milestones:
     {
     1 : {
