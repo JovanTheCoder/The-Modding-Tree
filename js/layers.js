@@ -29,6 +29,14 @@ addLayer("gf", {
         {key: "f", description: "f: giga flop ", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
         {key: "", description: "alt + f4: fre bobux "}
     ],
+    doReset(gf) {
+        if (layers[gf].row <= this.row) return;
+      
+        let keep = [];
+        if (hasMilestone(11)) keep.push("upgrades");
+        layerDataReset(this.layer, keep);
+      },
+    
     passiveGeneration() { 
         return hasUpgrade("fp", "13") ? 1 : 0; 
       },
@@ -50,6 +58,7 @@ addLayer("gf", {
 
     effect() {
         return player[this.layer].points.add(1).pow(1.25)
+       
     },
     effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
 
@@ -68,9 +77,9 @@ addLayer("gf", {
     
         },
 
-        21: {
+        14: {
             title: "0.001% of floppas power",
-            description: "1.25^ flops",
+            description: "1.03^ flops",
             cost: new Decimal(100),
 
         
@@ -80,15 +89,36 @@ addLayer("gf", {
 
             
         },
+        21: {
+            title: "floppa power upgrade 1",
+            description: "1.03^ flops",
+            cost: new Decimal(2500),
+            
+        },
+        22: {
+            title: "floppa power upgrade 2",
+            description: "1.03^ flops",
+            cost: new Decimal(2.5e4),
+            
+        },
+        23: {
+            title: "floppa power upgrade 3",
+            description: "1.03^ flops",
+            cost: new Decimal(2.5e5),
+            
+        },
+          24: {
+            title: "floppa power upgrade 4",
+            description: "1.03^ flops",
+            cost: new Decimal(2.5e7),
+            
+        },
         91: {
             title: "dev test power",
             description: "10x flops",
             cost: new Decimal(0),
-unlocked: false
+unlocked: true
         
-           
-        
-
 
             
         }
@@ -123,6 +153,7 @@ addLayer("mf", {
         let mult = new Decimal(1)
         if (hasUpgrade('mf', 13)) mult = mult.times(upgradeEffect('mf', 13))
         if (hasUpgrade('fp', 11)) mult = mult.times(upgradeEffect('fp', 11))
+ 
        
         return mult
     },
@@ -134,7 +165,15 @@ addLayer("mf", {
         {key: "m", description: "m: mega flop ", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
    
     ],
+    milestones:
+    {
+    1 : {
+      requirementDescription: "1,000 mega flops",
+                done() {return player[this.layer].best.gte(1e3)},
+                effectDescription: "keep giga flop upgrades on reset"
+    },
 
+    },
     upgrades: {
         11: {
             title: "mega flop",
@@ -162,7 +201,7 @@ addLayer("mf", {
             cost: new Decimal(7),
         
             effect() {
-                return player.points.add(1).pow(0.2)
+                return player.points.add(1).pow(0.12)
           
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
@@ -194,12 +233,12 @@ addLayer("fp", {
 		points: new Decimal(0),
     }},
     color: "#492e17",
-    requires: new Decimal(500000), // Can be a function that takes requirement increases into account
+    requires: new Decimal(5e6), // Can be a function that takes requirement increases into account
     resource: "floppa power", // Name of prestige currency
     baseResource: "flops", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.75, // Prestige currency exponent
+    exponent: 0.85, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         let mult = new Decimal(1)
     
@@ -220,7 +259,18 @@ addLayer("fp", {
       requirementDescription: "10 floppa power",
                 done() {return player[this.layer].best.gte(10)},
                 effectDescription: "get 2x flops"
-    }
+    },
+
+    2 : {
+        requirementDescription: "15 floppa power",
+                  done() {return player[this.layer].best.gte(15)},
+                  effectDescription: "get 1.5x giga flops"
+      },
+      11: {
+        requirementDescription: "25 floppa power",
+                  done() {return player[this.layer].best.gte(25)},
+                  effectDescription: "gain 100% of mega flops per second"
+      },
     },
     upgrades: {
         11: {
