@@ -47,9 +47,9 @@ function getPointGen() {
 	if (hasUpgrade('gf', 11)) gain = gain.times(2)
 	if (hasUpgrade('gf', 12)) gain = gain.times(upgradeEffect('gf', 12))
 	if (hasUpgrade('mf', 11)) gain = gain.times(3)
-	if (hasUpgrade('gf', 14)) gain = gain.pow(1.03)
+	if (hasUpgrade('gf', 14)) gain = gain.pow(1.15)
 	if (hasUpgrade('mf', 12)) gain = gain.times(10)
-	if (hasUpgrade('gf', 91)) gain = gain.times(10000000)
+	if (hasUpgrade('gf', 91)) gain = gain.times(100)
 	if (hasUpgrade('fp', 12)) gain = gain.times(12.5)
 	if (hasUpgrade('mf', 14)) gain = gain.times(2)
 	if (hasMilestone('fp', 1)) gain = gain.times(2)
@@ -57,6 +57,11 @@ function getPointGen() {
 	if (hasUpgrade('gf', 22)) gain = gain.pow(1.03)
 	if (hasUpgrade('gf', 23)) gain = gain.pow(1.03)
 	if (hasUpgrade('gf', 24)) gain = gain.pow(1.03)
+	if (hasUpgrade('gf', 25)) gain = gain.pow(1.03)
+	if (hasUpgrade('gf', 26)) gain = gain.pow(1.03)
+	if (hasUpgrade('gf', 27)) gain = gain.pow(1.03)
+	
+	if (hasMilestone('mf', 11)) gain = gain.times(2)
 	
 	
 	
